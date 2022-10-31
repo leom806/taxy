@@ -32,6 +32,7 @@ coverage
 # Ignore the production and staging keys
 /config/credentials/production.key
 /config/credentials/staging.key
+config/master.key
 
 # Ignore all data folders
 data
