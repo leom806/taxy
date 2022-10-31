@@ -1,0 +1,24 @@
+version: "3.9"
+volumes:
+  app:
+    name: taxy-api
+services:
+  maildev:
+    image: djfarrelly/maildev
+    ports:
+      - "25:25"
+      - "11000:80"
+  postgres:
+    image: "postgres:12-alpine"
+    environment:
+      PGDATA: /var/lib/postgresql/12/pgdata
+      POSTGRES_DB: taxy_development
+      POSTGRES_USER: taxy-dev
+      POSTGRES_PASSWORD: 096ca6c03ec8a63cb68916d016d2cf77
+    ports:
+      - "5432:5432"
+    working_dir: /app
+    volumes:
+      - ".:/app"
+      - "app:/var/lib/postgresql:delegated"
+      - "app:/var/run/postgresql:delegated"

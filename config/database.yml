@@ -1,0 +1,34 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 15 } %>
+  username: taxy-api
+  password: 096ca6c03ec8a63cb68916d016d2cf7
+  host: localhost
+  port: 5432
+  migrations_paths: db/migrate
+
+development:
+  primary:
+    <<: *default
+    database: taxy-api_development
+
+test:
+  primary:
+    <<: *default
+    url: <%= ENV['TEST_DATABASE_URL'] %>
+
+heroku:
+  primary:
+    url: <%= ENV['DATABASE_URL'] %>
+
+production: &production
+  primary:
+    adapter: postgresql
+    encoding: unicode
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 15 } %>
+    migrations_paths: db/migrate
+    url: <%= Rails.application.credentials.dig(:core, :database_url) %>
+
+staging:
+  <<: *production

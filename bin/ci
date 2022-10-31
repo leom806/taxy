@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+export DISABLE_SPRING=true
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
+set -e
+
+echo "[ bin/ci ] Running TypeChecker."
+# ( bin/tapioca dsl --verify &> /dev/null || true )
+bin/srb tc
+
+echo "[ bin/ci ] Running system tests."
+bin/rspec spec/ engines/
+
+echo "[ bin/ci ] Running Swagger for Requests Documentation update"
+echo "[ bin/ci ] Open up [http://localhost:3000/docs] to see the API documentation."
+bin/swagger
+
+echo "[ bin/ci ] Analyzing the quality of code."
+echo "[ bin/ci ] Output will be in tmp/rubycritic/overview.html, which"
+echo "[ bin/ci ] can be opened in your browser."
+bin/rubycritic --no-browser
+
+echo "[ bin/ci ] Analyzing code for security vulnerabilities."
+echo "[ bin/ci ] Output will be in tmp/brakeman.html, which"
+echo "[ bin/ci ] can be opened in your browser."
+bin/brakeman -q -o tmp/brakeman.html
+
+echo "[ bin/ci ] Analyzing Ruby gems for security vulnerabilities."
+bin/bundle-audit check --update
+
+echo "[ bin/ci ] Annotating Models."
+bin/annotate
+
+echo "[ bin/ci ] Running Packwerk to check engines violations."
+bin/packwerk check
+
+echo "[ bin/ci ] Done"
