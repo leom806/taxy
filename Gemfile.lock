@@ -357,8 +357,5 @@ DEPENDENCIES
   web-console
   wisper
 
-RUBY VERSION
-   ruby 3.2.0.dev
-
 BUNDLED WITH
    2.4.0.dev
