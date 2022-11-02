@@ -12,6 +12,8 @@ class ReceiptsController < ApplicationController
   end
 
   def show
+    @default_currency = ::Currency.default_formatted
+    @rates = ::Currency.all_formatted
   end
 
   def new

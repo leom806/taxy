@@ -12,17 +12,38 @@
         class: 'w-72 inline-block border px-3 py-2 rounded outline-none placeholder-slate-300' %>
 
       <%= f.submit 'Search',
-        class: 'inline-block rounded-lg px-3 py-2 bg-gray-400 text-white font-medium' %>
+        class: 'inline-block rounded-lg px-3 py-2 bg-gray-400 hover:bg-gray-600 hover:cursor-pointer text-white font-medium' %>
     <% end %>
 
-    <%= link_to 'New receipt', new_receipt_path, class: "w-1/6 rounded-lg py-3 px-5 bg-blue-400 text-white block font-medium" %>
+    <%= link_to 'New Receipt', new_receipt_path, class: "w-1/6 text-center rounded-lg py-3 bg-blue-400 hover:bg-blue-600 text-white block font-medium" %>
   </div>
 
   <div id="receipts" class="mx-auto mt-12">
     <% if @receipts.count.zero? %>
       <p class="py-2 px-3 ml-5 rounded text-gray-500 text-center inline-block">Looks like you have no receipts yet</p>
     <% else %>
-      <%= render @receipts %>
+      <% @receipts.each do |receipt| %>
+        <div class="flex justify-between items-center hover:bg-slate-50 p-5">
+          <div class="my-5 mx-10">
+            <span>
+              <strong class="inline-block font-medium mb-1 mr-2">Total:</strong>
+              <%= monetize receipt.amount %>
+            </span>
+
+            <span class="ml-20">
+              <strong class="inline-block font-medium mb-1 mr-2">Tax:</strong>
+              <%= monetize receipt.tax_amount %>
+            </span>
+          </div>
+
+          <div>
+            <%= link_to "See Details",
+                        receipt,
+                        class: "rounded-lg py-3 px-5 bg-gray-100 font-medium"
+                      %>
+          </div>
+        </div>
+      <% end %>
 
       <%== pagy_nav(@pagy) %>
     <% end %>
