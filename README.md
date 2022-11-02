@@ -20,4 +20,4 @@
 
 ### Caveats
 
-Git history and unit tests were not prioritized since they are more intended to make systems sustainable in the long run and this is just a one-off test.
+Some aspects were not prioritized as a clean git history, test suite nor the mobile version since they are more intended to make systems sustainable in the long run and/or improve user experience and this is just a one-off test.
