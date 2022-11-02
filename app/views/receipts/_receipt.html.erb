@@ -1,0 +1,72 @@
+<div id="<%= dom_id receipt %>" class="receipt">
+  <% if action_name == "show" %>
+    <div class="my-5">
+      <span>
+        <strong class="inline-block font-medium mb-1">Total:</strong>
+        <%= monetize receipt.amount %>
+      </span>
+
+      <span class="ml-4">
+        <strong class="inline-block font-medium mb-1">Tax:</strong>
+        <%= monetize receipt.tax_amount %>
+      </span>
+    </div>
+
+    <div class="flex justify-center my-6">
+      <table class="table-auto w-full">
+        <thead class="shadow border-slate-50">
+          <tr class="text-left">
+            <th class="p-5">Quantity</th>
+            <th class="p-5">Description</th>
+            <th class="p-5">Amount</th>
+            <th class="p-5">Tax</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% row = 1 %>
+          <% receipt.receipt_items.each do |item| %>
+            <tr class="w-full text-left hover:bg-slate-50 shadow">
+              <td class="w-1/4 pr-5">
+                <%= content_tag :p, item.quantity, class: "block rounded outline-none px-3 py-2 mt-2 w-full" %>
+              </td>
+              <td class="w-2/4">
+                <%= content_tag :p, item.description, class: "block rounded outline-none px-3 py-2 mt-2 w-full" %>
+              </td>
+              <td class="w-1/4 pl-5">
+                <%= content_tag :p, monetize(item.amount), class: "block rounded outline-none px-3 py-2 mt-2 w-full" %>
+              </td>
+              <td class="w-1/4 pl-5">
+                <%= content_tag :p, monetize(item.tax_amount), class: "block rounded outline-none px-3 py-2 mt-2 w-full" %>
+              </td>
+            </tr>
+
+            <% row += 1 %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+  <% else %>
+
+    <div class="flex justify-between items-center hover:bg-slate-50 p-5">
+      <div class="my-5 mx-10">
+        <span>
+          <strong class="inline-block font-medium mb-1 mr-2">Total:</strong>
+          <%= monetize receipt.amount %>
+        </span>
+
+        <span class="ml-20">
+          <strong class="inline-block font-medium mb-1 mr-2">Tax:</strong>
+          <%= monetize receipt.tax_amount %>
+        </span>
+      </div>
+
+      <div>
+        <%= link_to "See Details",
+                    receipt,
+                    class: "rounded-lg py-3 px-5 bg-gray-100 font-medium"
+                  %>
+      </div>
+    </div>
+  <% end %>
+</div>

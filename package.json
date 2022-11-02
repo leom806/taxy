@@ -1,11 +1,15 @@
 {
   "license": "",
   "devDependencies": {
-    "git-commit-msg-linter": "^4.2.1",
-    "@prettier/plugin-ruby": "^3.1.2"
+    "@prettier/plugin-ruby": "^3.1.2",
+    "git-commit-msg-linter": "^4.2.1"
   },
   "prettier": {
     "printWidth": 90,
     "tabWidth": 2
+  },
+  "dependencies": {
+    "chart.js": "^3.9.1",
+    "chartkick": "^4.2.0"
   }
 }

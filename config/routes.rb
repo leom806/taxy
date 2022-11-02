@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  root "receipts#index"
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  resources :receipts, except: %i[edit update] do
+    member { get :export }
+    collection { get :insights }
+  end
 end

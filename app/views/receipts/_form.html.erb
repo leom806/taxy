@@ -1,0 +1,74 @@
+<%= form_for(@receipt, class: "mx-auto") do |form| %>
+  <% if receipt.errors.any? %>
+    <div
+      id="error_explanation"
+      class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3"
+    >
+      <h2>
+        <%= pluralize(receipt.errors.count, "error") %> prohibited this receipt from being saved:
+      </h2>
+
+      <ul>
+        <% receipt.errors.each do |error| %>
+          <li>
+            <%= error.full_message %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="flex justify-center my-6">
+    <table class="table-auto w-2/3">
+      <thead>
+        <tr>
+          <th>Quantity</th>
+          <th>Description</th>
+          <th>Shelf Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% row = 0 %>
+        <%= form.fields_for :receipt_items do |items_form| %>
+          <tr class="w-full">
+            <td class="w-1/4 pr-5">
+              <%= items_form.number_field :quantity,
+                                            value: 1,
+                                            min: 1,
+                                            class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full"
+              %>
+            </td>
+            <td class="w-2/4">
+              <%= items_form.text_field :description,
+                                          required: row.zero?,
+                                          class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full"
+              %>
+            </td>
+            <td class="w-1/4 pl-5">
+              <%= items_form.number_field :amount,
+                                            step: 0.01,
+                                            value: number_to_currency(0.to_f, delimiter: '', unit: ''),
+                                            class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full"
+              %>
+            </td>
+          </tr>
+
+          <% row += 1 %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="flex justify-end">
+    <%= link_to 'See Receipts',
+              receipts_path,
+              class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium mr-5"
+            %>
+
+    <%= form.submit 'Generate Receipt',
+                    class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer"
+                  %>
+  </div>
+
+<% end %>

@@ -1,0 +1,30 @@
+<div class="w-full">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <div class="flex justify-between items-center">
+    <h1 class="font-bold text-4xl">Receipts</h1>
+
+    <%= search_form_for @q do |f| %>
+      <%= f.search_field :receipt_items_description_i_cont,
+        placeholder: 'Search by items descriptions',
+        class: 'w-72 inline-block border px-3 py-2 rounded outline-none placeholder-slate-300' %>
+
+      <%= f.submit 'Search',
+        class: 'inline-block rounded-lg px-3 py-2 bg-gray-400 text-white font-medium' %>
+    <% end %>
+
+    <%= link_to 'New receipt', new_receipt_path, class: "w-1/6 rounded-lg py-3 px-5 bg-blue-400 text-white block font-medium" %>
+  </div>
+
+  <div id="receipts" class="mx-auto mt-12">
+    <% if @receipts.count.zero? %>
+      <p class="py-2 px-3 ml-5 rounded text-gray-500 text-center inline-block">Looks like you have no receipts yet</p>
+    <% else %>
+      <%= render @receipts %>
+
+      <%== pagy_nav(@pagy) %>
+    <% end %>
+  </div>
+</div>

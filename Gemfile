@@ -4,11 +4,12 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 gem "rails", "~> 7.0.1"
 
 gem "chartkick"
+gem "dotenv-rails"
 gem "importmap-rails"
-gem "jbuilder"
 gem "lograge"
+gem "httparty"
+gem "money"
 gem "pagy"
-gem "pg_search"
 gem "pg", "~> 1.1"
 gem "puma", "~> 5.0"
 gem "rack-attack"
@@ -29,7 +30,7 @@ gem "bootsnap", require: false
 
 group :development do
   gem "annotate"
-  gem "brakeman" # brakeman -f html -o brakeman_report.html
+  gem "brakeman"
   gem "bundler-audit"
   gem "web-console"
   gem "prettier"
@@ -47,5 +48,5 @@ end
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "pry-byebug"
-  gem 'rspec-rails', '~> 6.0.0'
+  gem "rspec-rails", "~> 6.0.0"
 end

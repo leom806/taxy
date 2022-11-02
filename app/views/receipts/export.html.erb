@@ -1,0 +1,31 @@
+********************************************************************************
+
+                                    Taxy
+                            Sales Tax Calculator
+
+********************************************************************************
+
+Receipt #<%= receipt.id %>
+
+
+Total Amount <%= monetize receipt.amount %>
+Total Tax <%= monetize receipt.tax_amount %>
+
+--------------------------------------------------------------------------------
+
+Receipt Items:
+
+<% receipt.receipt_items.each_with_index do |item, index| %>
+
+Item #<%= index + 1%>
+  - Description: <%= item.description %>
+  - Quantity: <%= item.quantity %>
+  - Shelf Price: <%= monetize item.amount %>
+  - Tax Amount: <%= monetize item.tax_amount %>
+
+<% end %>
+
+--------------------------------------------------------------------------------
+
+Generated at <%= receipt.created_at.to_formatted_s(:long_ordinal) %>
+Downloaded at <%= Time.now.to_formatted_s(:long_ordinal) %>

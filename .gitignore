@@ -77,3 +77,6 @@ out/
 # Prevent usage of envs that overrides environments
 .env.development.local
 .env.test.local
+
+/app/assets/builds/*
+!/app/assets/builds/.keep

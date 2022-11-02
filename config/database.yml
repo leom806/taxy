@@ -2,8 +2,8 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 15 } %>
-  username: taxy-api
-  password: 096ca6c03ec8a63cb68916d016d2cf7
+  username: taxy-dev
+  password: 096ca6c03ec8a63cb68916d016d2cf77
   host: localhost
   port: 5432
   migrations_paths: db/migrate
@@ -11,12 +11,12 @@ default: &default
 development:
   primary:
     <<: *default
-    database: taxy-api_development
+    database: taxy_development
 
 test:
   primary:
     <<: *default
-    url: <%= ENV['TEST_DATABASE_URL'] %>
+    database: taxy_test
 
 heroku:
   primary:
